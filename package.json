@@ -1,7 +1,7 @@
 {
-  "name": "@neoke-labs/ion-tools",
-  "version": "1.0.0",
-  "description": "ION Tools - utilities to make working with the ION network and using ION DIDs easy peasy lemon squeezy",
+  "name": "ion-tools-neoke",
+  "version": "1.0.2",
+  "description": "ION Tools fork - utilities to make working with the ION network and using ION DIDs easy peasy lemon squeezy",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/neoke-labs/ion-tools.git"
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "bundle": "rm -rf ./dist && node ./bundle.js",
-    "publish": "npm run bundle && npm publish",
+    "publish": "npm run bundle && npm publish --access public",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix"
   },
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "multiformats": "9.6.4",
-    "@noble/secp256k1": "1.5.5",
+    "@noble/secp256k1": "1.7.1",
     "@decentralized-identity/ion-sdk": "0.6.0",
     "cross-fetch": "3.1.5",
     "ion-pow-sdk": "1.0.16"
@@ -35,9 +35,9 @@
     "dist"
   ],
   "bugs": {
-    "url": "https://github.com/decentralized-identity/ion-tools/issues"
+    "url": "https://github.com/neoke-labs/ion-tools/issues"
   },
-  "homepage": "https://github.com/decentralized-identity/ion-tools#readme",
+  "homepage": "https://github.com/neoke-labs/ion-tools#readme",
   "keywords": [
     "ION",
     "decentralized",
