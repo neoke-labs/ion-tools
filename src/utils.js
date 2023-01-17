@@ -1,7 +1,6 @@
 import crossFetch from 'cross-fetch';
 import ProofOfWorkSDK from 'ion-pow-sdk';
 
-import * as ed25519 from '@noble/ed25519';
 import * as secp256k1 from '@noble/secp256k1';
 
 import { base64url } from 'multiformats/bases/base64';
@@ -18,13 +17,13 @@ const fetch = globalThis.fetch ?? crossFetch;
 
 /**
  * @typedef {object} PrivateJWK
- * @property {'Ed25519'|'secp256k1'} privateJWK.crv
+ * @property {'secp256k1'} privateJWK.crv
  * @property {string} privateJWK.d
  */
 
 /**
  * @typedef {object} PublicJWK
- * @property {'Ed25519'|'secp256k1'} publicJWK.crv
+ * @property {'secp256k1'} publicJWK.crv
  * @property {string} publicJWK.x
  * @property {string} [publicJWK.y]
  */
@@ -44,7 +43,7 @@ const keyGenerators = {
 
 /**
  * generates a keypair of the type provided
- * @param {'Ed25519'| 'EdDSA' | 'secp256k1' | 'ES256K'} type
+ * @param {'secp256k1' | 'ES256K'} type
  * @returns {KeyPair}
  */
 export async function generateKeyPair(type = 'secp256k1') {
@@ -72,11 +71,6 @@ export async function sign(params = { }) {
   let signerOpts;
 
   switch (privateJwk.crv) {
-    case 'Ed25519':
-      header.alg = 'EdDSA';
-      signer = ed25519;
-      break;
-
     case 'secp256k1':
       header.alg = 'ES256K';
       signer = secp256k1;
@@ -146,12 +140,6 @@ export async function verify(params = { }) {
       const hashedMessage = await sha256.encode(messageBytes);
 
       return secp256k1.verify(signatureBytes, hashedMessage, publicKeyBytes);
-    }
-
-    case 'Ed25519': {
-      const publicKeyBytes = base64url.baseDecode(publicJwk.x);
-
-      return ed25519.verify(signatureBytes, messageBytes, publicKeyBytes);
     }
 
     default:
